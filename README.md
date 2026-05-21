@@ -1,17 +1,71 @@
-# bead_pattern_flutter
+# 拼豆图纸生成器
 
-A new Flutter project.
+将任意图片转换为拼豆图纸，支持 mard 完整色卡，可自定义手中拥有的颜色，一键导出图纸图片与用料清单。
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 功能
 
-A few resources to get you started if this is your first Flutter project:
+- **颜色选择**：内置完整 mard 色卡（311 色），按色系分组，可自由勾选手中现有的颜色，选择结果自动保存
+- **智能配色**：使用 LAB 色彩空间进行感知匹配，尽量贴近原图色彩
+- **精细度调节**：五档精细度（100% / 75% / 50% / 25% / 10%），按已选颜色数量等比换算
+- **图纸尺寸**：支持最大 200×200 格，宽高按原图比例联动
+- **实时预览**：可缩放平移，支持显示色号标注，鼠标悬停显示当前格色号
+- **格子大小**：五档切换（8 / 16 / 24 / 30 / 36 px），影响导出图片清晰度
+- **导出**：导出图纸 PNG 图片 / 用料色号清单 TXT
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 平台支持
+
+| 平台 | 状态 |
+|------|------|
+| Windows | ✅ 支持（推荐） |
+| Android | ⚠️ 支持（测试阶段，可能存在未知问题） |
+
+> **注意**：Android 版本目前处于不稳定阶段，如遇异常建议优先使用 Windows 版本。
+
+---
+
+## 使用方法
+
+1. 打开软件，点击**管理我的颜色**，勾选手中拥有的拼豆颜色
+2. 点击**选择图片**，导入要转换的图片
+3. 调整**图纸尺寸**（宽×高格数）
+4. 选择合适的**精细度**
+5. 预览满意后，点击**导出图片**或**导出色号清单**
+
+> 若导出图片中色号标注不清晰，可在「格子大小」处选择更大的尺寸后重新导出。
+
+---
+
+## 构建
+
+需要 [Flutter SDK](https://flutter.dev/docs/get-started/install)（建议 3.x 最新稳定版）。
+
+```bash
+# 获取依赖
+flutter pub get
+
+# 构建 Windows
+flutter build windows --release
+
+# 构建 Android APK
+flutter build apk --release
+```
+
+构建产物：
+- Windows：`build\windows\x64\runner\Release\bead_pattern_flutter.exe`
+- Android：`build\app\outputs\flutter-apk\app-release.apk`
+
+---
+
+## 色卡来源
+
+内置色卡基于 **mard** 拼豆品牌的完整颜色规格，共 291 色，按字母分组（A–ZG）。
+
+---
+
+## 开源协议
+
+[MIT License](LICENSE) © 2026 Seraph

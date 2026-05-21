@@ -18,11 +18,11 @@ class AppState extends ChangeNotifier {
   int origW = 1, origH = 1;
 
   // ── 参数 ──
-  int gridW = 40;
-  int gridH = 40;
+  int gridW = 78;
+  int gridH = 78;
   int qualityIndex = 0;
   bool showCodes = false;
-  int cellSize = 20;
+  int cellSize = 24;
 
   // ── 颜色选择：默认全选，启动后从持久化存储读取 ──
   Set<String> selectedCodes = {for (final c in fullPalette) c.code};
@@ -134,10 +134,10 @@ class AppState extends ChangeNotifier {
 
     if (origW >= origH) {
       gridW = 78;
-      gridH = (78 * origH / origW).round().clamp(1, 78);
+      gridH = (78 * origH / origW).round().clamp(1, 200);
     } else {
       gridH = 78;
-      gridW = (78 * origW / origH).round().clamp(1, 78);
+      gridW = (78 * origW / origH).round().clamp(1, 200);
     }
 
     notifyListeners();
@@ -149,8 +149,8 @@ class AppState extends ChangeNotifier {
   void setGridW(int w) {
     if (_updatingSize) return;
     _updatingSize = true;
-    gridW = w.clamp(1, 78);
-    if (origW > 1) gridH = (gridW * origH / origW).round().clamp(1, 78);
+    gridW = w.clamp(1, 200);
+    if (origW > 1) gridH = (gridW * origH / origW).round().clamp(1, 200);
     _updatingSize = false;
     notifyListeners();
     scheduleProcess();
@@ -159,8 +159,8 @@ class AppState extends ChangeNotifier {
   void setGridH(int h) {
     if (_updatingSize) return;
     _updatingSize = true;
-    gridH = h.clamp(1, 78);
-    if (origH > 1) gridW = (gridH * origW / origH).round().clamp(1, 78);
+    gridH = h.clamp(1, 200);
+    if (origH > 1) gridW = (gridH * origW / origH).round().clamp(1, 200);
     _updatingSize = false;
     notifyListeners();
     scheduleProcess();

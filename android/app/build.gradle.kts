@@ -12,7 +12,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.bead_pattern_flutter"
+    namespace = "com.Seraph.beadmaker"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -22,7 +22,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.bead_pattern_flutter"
+        applicationId = "com.Seraph.beadmaker"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

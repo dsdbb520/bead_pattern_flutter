@@ -1,4 +1,4 @@
-package com.example.bead_pattern_flutter
+package com.Seraph.beadmaker
 
 import io.flutter.embedding.android.FlutterActivity
 

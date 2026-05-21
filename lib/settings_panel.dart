@@ -81,7 +81,7 @@ class SettingsPanel extends StatelessWidget {
           const SizedBox(height: 4),
 
           // ── 图纸尺寸 ──
-          _Section(title: '图纸尺寸（最大 78×78，按比例联动）', children: [
+          _Section(title: '图纸尺寸（最大 200×200，按比例联动）', children: [
             Row(children: [
               const Text('宽'),
               const SizedBox(width: 8),
@@ -135,25 +135,41 @@ class SettingsPanel extends StatelessWidget {
               onChanged: (v) => context.read<AppState>().setShowCodes(v),
             ),
             const SizedBox(height: 4),
-            Row(children: [
-              const Text('格子大小'),
-              Expanded(
-                child: Slider(
-                  min: 4,
-                  max: 64,
-                  value: state.cellSize.toDouble(),
-                  label: '${state.cellSize}px',
-                  divisions: 60,
-                  onChanged: (v) =>
-                      context.read<AppState>().setCellSize(v.round()),
+            const Text('格子大小'),
+            const SizedBox(height: 8),
+            SegmentedButton<int>(
+              segments: const [
+                ButtonSegment(
+                  value: 8,
+                  label: _CellSizeLabel('最小', '8px'),
                 ),
-              ),
-              SizedBox(
-                width: 36,
-                child:
-                    Text('${state.cellSize}', textAlign: TextAlign.center),
-              ),
-            ]),
+                ButtonSegment(
+                  value: 16,
+                  label: _CellSizeLabel('小', '16px'),
+                ),
+                ButtonSegment(
+                  value: 24,
+                  label: _CellSizeLabel('中', '24px'),
+                ),
+                ButtonSegment(
+                  value: 30,
+                  label: _CellSizeLabel('大', '30px'),
+                ),
+                ButtonSegment(
+                  value: 36,
+                  label: _CellSizeLabel('极大', '36px'),
+                ),
+              ],
+              selected: {state.cellSize},
+              onSelectionChanged: (v) =>
+                  context.read<AppState>().setCellSize(v.first),
+              showSelectedIcon: false,
+            ),
+            const SizedBox(height: 6),
+            Text(
+              '格子尺寸越大，导出图片中的色号标注越清晰，同时输出文件体积也会相应增加。',
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade600),
+            ),
           ]),
 
           const SizedBox(height: 4),
@@ -221,6 +237,24 @@ class _Section extends StatelessWidget {
   }
 }
 
+// 格子大小选项的双行标签（名称 + px 数值）
+class _CellSizeLabel extends StatelessWidget {
+  final String name;
+  final String px;
+  const _CellSizeLabel(this.name, this.px);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(name, style: const TextStyle(fontSize: 11)),
+        Text(px,   style: const TextStyle(fontSize: 9)),
+      ],
+    );
+  }
+}
+
 class _SizeField extends StatefulWidget {
   final int value;
   final ValueChanged<int> onChanged;
@@ -270,7 +304,7 @@ class _SizeFieldState extends State<_SizeField> {
         ),
         onChanged: (s) {
           final v = int.tryParse(s);
-          if (v != null && v >= 1 && v <= 78) widget.onChanged(v);
+          if (v != null && v >= 1 && v <= 200) widget.onChanged(v);
         },
       ),
     );
